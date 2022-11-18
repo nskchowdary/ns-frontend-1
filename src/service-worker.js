@@ -107,6 +107,20 @@ registerRoute(
     ],
   })
 );
+registerRoute(
+  ({ url }) =>
+    url.origin === 'http://neonodemongo-env.eba-kn38mu2w.us-east-2.elasticbeanstalk.com' &&
+    url.pathname.startsWith('/api/shapes'),
+  new StaleWhileRevalidate({
+    cacheName: 'api-paper',
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+      new ExpirationPlugin({ maxEntries: 1000 }),
+    ],
+  })
+);
 
 registerRoute(
   ({ request }) => request.destination === 'image',
