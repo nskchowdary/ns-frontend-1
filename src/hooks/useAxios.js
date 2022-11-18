@@ -1,31 +1,31 @@
-import { useState, useEffect } from 'react'
-import axios from '../utilities/axios'
+import { useState, useEffect } from 'react';
+import axios from '../utilities/axios';
 
-axios.defaults.baseURL = ''
+axios.defaults.baseURL = process.env.BASE_URL;
 
 const useAxios = ({ url, method, body = null, headers = null }) => {
-  const [response, setResponse] = useState(null)
-  const [error, setError] = useState('')
-  const [loading, setloading] = useState(true)
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState('');
+  const [loading, setloading] = useState(true);
 
   const fetchData = () => {
     axios[method](url, JSON.parse(headers), JSON.parse(body))
       .then((res) => {
-        setResponse(res.data)
+        setResponse(res.data);
       })
       .catch((err) => {
-        setError(err)
+        setError(err);
       })
       .finally(() => {
-        setloading(false)
-      })
-  }
+        setloading(false);
+      });
+  };
 
   useEffect(() => {
-    fetchData()
-  }, [method, url, body, headers])
+    fetchData();
+  }, [method, url, body, headers]);
 
-  return { response, error, loading }
-}
+  return { response, error, loading };
+};
 
-export default useAxios
+export default useAxios;
