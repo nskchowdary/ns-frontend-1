@@ -1,0 +1,22 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+.header-mainDiv {
+  background-color: #f8f8f8;
+  height: 70px;
+  width: auto;
+  border: 2px solid black;
+  display: flex;
+  justify-content: space-between;
+}
+.header-title {
+  color: chocolate;
+  padding-left: 50px;
+  padding-bottom: 20px;
+}
+.logout-btn {
+  height: 50px;
+  margin-right: 50px;
+  margin-top: 5px;
+}
