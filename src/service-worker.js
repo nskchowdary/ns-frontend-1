@@ -6,6 +6,10 @@ import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate, CacheFirst } from 'workbox-strategies';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
+// const baseUrl = 'https://neobck.azurewebsites.net';
+
+console.log(location);
+
 clientsClaim();
 precacheAndRoute(self.__WB_MANIFEST);
 
@@ -81,8 +85,7 @@ registerRoute(
 
 registerRoute(
   ({ url }) =>
-    url.origin === 'http://neonodemongo-env.eba-kn38mu2w.us-east-2.elasticbeanstalk.com' &&
-    url.pathname.startsWith('/api/paper'),
+    url.origin === 'https://neobck.azurewebsites.net' && url.pathname.startsWith('/api/paper'),
   new StaleWhileRevalidate({
     cacheName: 'api-paper',
     plugins: [
@@ -95,8 +98,7 @@ registerRoute(
 );
 registerRoute(
   ({ url }) =>
-    url.origin === 'http://neonodemongo-env.eba-kn38mu2w.us-east-2.elasticbeanstalk.com' &&
-    url.pathname.startsWith('/api/paper/'),
+    url.origin === 'https://neobck.azurewebsites.net' && url.pathname.startsWith('/api/paper/'),
   new StaleWhileRevalidate({
     cacheName: 'api-paper',
     plugins: [
@@ -109,8 +111,7 @@ registerRoute(
 );
 registerRoute(
   ({ url }) =>
-    url.origin === 'http://neonodemongo-env.eba-kn38mu2w.us-east-2.elasticbeanstalk.com' &&
-    url.pathname.startsWith('/api/shapes'),
+    url.origin === 'https://neobck.azurewebsites.net' && url.pathname.startsWith('/api/shapes'),
   new StaleWhileRevalidate({
     cacheName: 'api-paper',
     plugins: [
@@ -138,4 +139,4 @@ registerRoute(
   })
 );
 
-workbox.routing.registerRoute(new RegExp('/.*'), new workbox.strategies.NetworkFirst());
+// workbox.routing.registerRoute(new RegExp('/.*'), new workbox.strategies.NetworkFirst());
