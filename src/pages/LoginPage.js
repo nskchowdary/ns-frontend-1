@@ -19,11 +19,11 @@ const LoginPage = () => {
     if (!username || !password) {
       setErr('enter User Name & Password')
     }
-    if (username === 'reshi' && password === '123') {
-      setItem('loggedIn', true)
-      navigate('/')
+    if (username === 'neosilica' && password === '123456') {
+      setItem('loggedIn', true);
+      navigate('/');
     } else {
-      setErr('Invalid Username & Password')
+      setErr('Invalid Username & Password');
     }
   }
   return (
