@@ -1,35 +1,31 @@
-import React, { useEffect, useState } from "react";
-import axios from "../utilities/axios";
-import { dia, shapes } from "@clientio/rappid";
-import $ from "jquery";
-import jsPDF from "jspdf";
-import { FcRedo, FcUndo } from "react-icons/fc";
-import { Button } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import html2canvas from "html2canvas";
-import {
-  AiFillDelete,
-  AiOutlineZoomOut,
-  AiOutlineZoomIn,
-} from "react-icons/ai";
-import { MdOutlineZoomOutMap } from "react-icons/md";
-import Modal from "react-modal";
-import { getItem, setItem, removeItem } from "../utilities/common/index";
-import { toolsView } from "../utilities/common/Tools/index";
-import "../assets/scss/DrawToolPage/DrawToolPage.scss";
+import React, { useEffect, useState } from 'react';
+import axios from '../utilities/axios';
+import { dia, shapes } from '@clientio/rappid';
+import $ from 'jquery';
+import jsPDF from 'jspdf';
+import { FcRedo, FcUndo } from 'react-icons/fc';
+import { Button } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import html2canvas from 'html2canvas';
+import { AiFillDelete, AiOutlineZoomOut, AiOutlineZoomIn } from 'react-icons/ai';
+import { MdOutlineZoomOutMap } from 'react-icons/md';
+import Modal from 'react-modal';
+import { getItem, setItem, removeItem } from '../utilities/common/index';
+import { toolsView } from '../utilities/common/Tools/index';
+import '../assets/scss/DrawToolPage/DrawToolPage.scss';
 
 const DrawToolPage = () => {
   const customStyles = {
     content: {
-      position: "absolute",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-      width: "auto",
-      bgcolor: "background.paper",
-      border: "2px solid #000",
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 'auto',
+      bgcolor: 'background.paper',
+      border: '2px solid #000',
       boxShadow: 24,
-      height: "500px",
+      height: '500px',
       p: 4,
     },
   };
@@ -56,68 +52,59 @@ const DrawToolPage = () => {
         data: jsonString,
       });
     } else {
-      setItem("tempGraphData", jsonString);
+      setItem('tempGraphData', jsonString);
     }
   };
 
   // function for export graph
   const exportGraph = () => {
     setIsOpen(true);
-    html2canvas(document.querySelector("#paper")).then((canvas) => {
-      canvas.id = "newcanvas";
-      canvas.style.width = "350px";
-      canvas.style.height = "350px";
-      const element = document.getElementById("newcanvas");
+    html2canvas(document.querySelector('#paper')).then((canvas) => {
+      canvas.id = 'newcanvas';
+      canvas.style.width = '350px';
+      canvas.style.height = '350px';
+      const element = document.getElementById('newcanvas');
       if (element) {
         element.remove();
       }
-      const menu = document.querySelector("#menu");
+      const menu = document.querySelector('#menu');
       menu.appendChild(canvas);
     });
   };
   // function for download image in diffrent format
   const downloadImage = async (type) => {
-    const canvas = document.getElementById("newcanvas");
-    const imgData = canvas.toDataURL("image/jpeg", 1.0);
-    if (type === "jpeg") {
-      canvas.style.backgroundColor = "#FFFFFF";
-      const link = document.createElement("a");
-      link.download = "my-image.jpeg";
+    const canvas = document.getElementById('newcanvas');
+    const imgData = canvas.toDataURL('image/jpeg', 1.0);
+    if (type === 'jpeg') {
+      canvas.style.backgroundColor = '#FFFFFF';
+      const link = document.createElement('a');
+      link.download = 'my-image.jpeg';
       link.href = imgData;
       link.click();
-    } else if (type === "png") {
-      canvas.style.backgroundColor = "#FFFFFF";
-      const link = document.createElement("a");
-      link.download = "my-image.png";
+    } else if (type === 'png') {
+      canvas.style.backgroundColor = '#FFFFFF';
+      const link = document.createElement('a');
+      link.download = 'my-image.png';
       link.href = imgData;
       link.click();
-    } else if (type === "pdf") {
+    } else if (type === 'pdf') {
       const pdf = new jsPDF();
-      pdf.addImage(imgData, "JPEG", 0, 0);
-      pdf.save("download.pdf");
-    } else if (type === "svg") {
+      pdf.addImage(imgData, 'JPEG', 0, 0);
+      pdf.save('download.pdf');
+    } else if (type === 'svg') {
       const svgDoc = paper.svg;
       const serializer = new XMLSerializer();
       let source = serializer.serializeToString(svgDoc);
-      if (
-        !source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)
-      ) {
-        source = source.replace(
-          /^<svg/,
-          '<svg xmlns="http://www.w3.org/2000/svg"'
-        );
+      if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+        source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
       }
       if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
-        source = source.replace(
-          /^<svg/,
-          '<svg xmlns:xlink="http://www.w3.org/1999/xlink"'
-        );
+        source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
       }
       source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
-      const url =
-        "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
-      const link = document.createElement("a");
-      link.download = "my-image.svg";
+      const url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(source);
+      const link = document.createElement('a');
+      link.download = 'my-image.svg';
 
       link.href = url;
       link.click();
@@ -146,9 +133,9 @@ const DrawToolPage = () => {
     paperData = paperData.data;
     graph.fromJSON(JSON.parse(paperData.jsondata));
     paper = new dia.Paper({
-      el: $("#paper"),
-      width: "100%",
-      height: "710px",
+      el: $('#paper'),
+      width: '100%',
+      height: '710px',
       model: graph,
       cellViewNamespace: shapes,
       background: {
@@ -158,7 +145,7 @@ const DrawToolPage = () => {
       },
       defaultLink: () =>
         new dia.Link({
-          attrs: { ".marker-target": { d: "M 10 0 L 0 5 L 10 10 z" } },
+          attrs: { '.marker-target': { d: 'M 10 0 L 0 5 L 10 10 z' } },
         }),
     });
 
@@ -166,18 +153,18 @@ const DrawToolPage = () => {
     // Creating stencilGraph and stencilPaper
     stencilGraph = new dia.Graph({}, { cellNamespace: shapes });
     stencilPaper = new dia.Paper({
-      el: $("#stencil"),
+      el: $('#stencil'),
       model: stencilGraph,
       interactive: false,
-      height: "790px",
-      width: "300px",
+      height: '790px',
+      width: '300px',
       background: {
-        color: " rgb(240, 118, 18)",
+        color: ' rgb(240, 118, 18)',
       },
     });
 
     // Fetching shapes from database
-    const allShapes = await axios.get("/shapes");
+    const allShapes = await axios.get('/shapes');
     let x;
     let y = 10;
     allShapes.data.forEach((item, index) => {
@@ -198,14 +185,14 @@ const DrawToolPage = () => {
     // getting papaer data from database
 
     // drag and drop functionality
-    stencilPaper.on("cell:pointerdown", (cellView, e, X, Y) => {
+    stencilPaper.on('cell:pointerdown', (cellView, e, X, Y) => {
       const data = cellView.model.getBBox();
-      $("body").append(
+      $('body').append(
         '<div id="flyPaper" style="position:fixed;z-index:100;opacity:.7;pointer-event:none;"></div>'
       );
       const flyGraph = new dia.Graph({}, { cellNamespace: shapes });
       const flyPaper = new dia.Paper({
-        el: $("#flyPaper"),
+        el: $('#flyPaper'),
         model: flyGraph,
         width: data.width,
         height: data.height,
@@ -220,18 +207,24 @@ const DrawToolPage = () => {
 
       flyShape.position(0, 0);
       flyGraph.addCell(flyShape);
-      $("#flyPaper").offset({
+      $('#flyPaper').offset({
         left: e.pageX - offset.x,
         top: e.pageY - offset.y,
       });
 
-      $("body").on("mousemove.fly", (evt) => {
-        $("#flyPaper").offset({
+      $('body').on('pointerup', (evt) => {
+        $('#flyPaper').offset({
           left: evt.pageX - offset.x,
           top: evt.pageY - offset.y,
         });
       });
-      $("body").on("mouseup.fly", (event) => {
+      $('body').on('mousemove.fly', (evt) => {
+        $('#flyPaper').offset({
+          left: evt.pageX - offset.x,
+          top: evt.pageY - offset.y,
+        });
+      });
+      $('body').on('mouseup.fly', (event) => {
         const { pageX, pageY } = event;
         const target = paper.$el.offset();
         // Dropped over paper ?
@@ -242,56 +235,104 @@ const DrawToolPage = () => {
           pageY < target.top + paper.$el.height()
         ) {
           const s = flyShape.clone();
-          s.position(
-            pageX - target.left - offset.x,
-            pageY - target.top - offset.y
-          );
+          s.position(pageX - target.left - offset.x, pageY - target.top - offset.y);
 
           graph.addCell(s);
         }
-        $("body").off("mousemove.fly").off("mouseup.fly");
+        $('body').off('mousemove.fly').off('mouseup.fly');
         flyShape.remove();
-        $("#flyPaper").remove();
+        $('#flyPaper').remove();
+      });
+      $('body').on('pointerup.fly', (event) => {
+        console.log('pointerup.fly', event);
+        const { pageX, pageY } = event;
+        const target = paper.$el.offset();
+        // Dropped over paper ?
+        if (
+          pageX > target.left &&
+          pageX < target.left + paper.$el.width() &&
+          pageY > target.top &&
+          pageY < target.top + paper.$el.height()
+        ) {
+          const s = flyShape.clone();
+          s.position(pageX - target.left - offset.x, pageY - target.top - offset.y);
+
+          graph.addCell(s);
+        }
+        $('body').off('mousemove.fly').off('mouseup.fly');
+        flyShape.remove();
+        $('#flyPaper').remove();
+      });
+
+      // touch events
+
+      $('body').on('touchMove.fly', (evt) => {
+        console.log('evt', evt);
+        $('#flyPaper').offset({
+          left: evt.pageX - offset.x,
+          top: evt.pageY - offset.y,
+        });
+      });
+
+      $('body').on('touchstart.fly', (event) => {
+        console.log('fky', event);
+        const { pageX, pageY } = event;
+        const target = paper.$el.offset();
+        // Dropped over paper ?
+        if (
+          pageX > target.left &&
+          pageX < target.left + paper.$el.width() &&
+          pageY > target.top &&
+          pageY < target.top + paper.$el.height()
+        ) {
+          const s = flyShape.clone();
+          s.position(pageX - target.left - offset.x, pageY - target.top - offset.y);
+
+          graph.addCell(s);
+        }
+        $('body').off('touchMove.fly').off('touchstart.fly');
+        flyShape.remove();
+        $('#flyPaper').remove();
       });
     });
 
     // The ononline event occurs when the browser starts to work online.
     window.ononline = async () => {
-      const jsonString = getItem("tempGraphData");
+      const jsonString = getItem('tempGraphData');
       if (jsonString) {
         try {
           await axios.post(`/paper/${params.id}`, {
             data: jsonString,
           });
-          removeItem("tempGraphData");
+          removeItem('tempGraphData');
         } catch (error) {
           console.log(error);
         }
       }
     };
-    paper.on("cell:pointerup", async function () {
+    paper.on('cell:pointerup', async function () {
       await sendGraphJson();
     });
-    paper.on("cell:pointerdown", function (cellView) {
+    paper.on('cell:pointerdown', function (cellView) {
       if (!cellView.model.isLink()) {
         cellView.addTools(toolsView);
       }
     });
-    paper.on("blank:mousewheel", function (evt, x, y, delta) {
+    paper.on('blank:mousewheel', function (evt, x, y, delta) {
       evt.preventDefault();
       zoomOnMousewheel(x, y, delta);
     });
 
-    paper.on("cell:mousewheel", function (_, evt, x, y, delta) {
+    paper.on('cell:mousewheel', function (_, evt, x, y, delta) {
       evt.preventDefault();
       zoomOnMousewheel(x, y, delta);
     });
   }
   function zoomOnMousewheel(x, y, delta) {
-    var MIN_ZOOM = 0.2;
-    var MAX_ZOOM = 4;
-    var currentZoom = paper.scale().sx;
-    var newZoom = currentZoom + delta * 0.2;
+    let MIN_ZOOM = 0.2;
+    let MAX_ZOOM = 4;
+    let currentZoom = paper.scale().sx;
+    let newZoom = currentZoom + delta * 0.2;
     if (newZoom > MIN_ZOOM && newZoom < MAX_ZOOM) {
       paper.translate(0, 0);
       paper.scale(newZoom, newZoom, x, y);
@@ -309,106 +350,87 @@ const DrawToolPage = () => {
 
   return (
     <div>
-      <div className="draw-mainDiv">
-        <div className="inner-div">
-          <div className="draw-col1">
-            <div id="stencil" />
+      <div className='draw-mainDiv'>
+        <div className='inner-div'>
+          <div className='draw-col1'>
+            <div id='stencil' />
           </div>
-          <div id="total" className="draw-col2">
-            <div className="toolbar">
-              <div className="inner-toolbar">
-                <button
-                  type="button"
-                  className="tools-btn"
-                  onClick={exportGraph}
-                >
+          <div id='total' className='draw-col2'>
+            <div className='toolbar'>
+              <div className='inner-toolbar'>
+                <button type='button' className='tools-btn' onClick={exportGraph}>
                   export
                 </button>
-                <div className="undo-redo">
-                  <button
-                    className="tools-btn"
-                    onClick={() => commandManager.undo()}
-                  >
+                <div className='undo-redo'>
+                  <button className='tools-btn' onClick={() => commandManager.undo()}>
                     <FcUndo />
                   </button>
                   <button
-                    className="tools-btn"
-                    variant="btn-outline-info"
+                    className='tools-btn'
+                    variant='btn-outline-info'
                     onClick={() => commandManager.redo()}
                   >
                     <FcRedo />
                   </button>
                 </div>
-                <div className="zoom">
-                  <button className="tools-btn" onClick={zoomOut}>
+                <div className='zoom'>
+                  <button className='tools-btn' onClick={zoomOut}>
                     <AiOutlineZoomOut />
                   </button>
-                  <button
-                    className="tools-btn"
-                    variant="btn-outline-info"
-                    onClick={zoomIn}
-                  >
+                  <button className='tools-btn' variant='btn-outline-info' onClick={zoomIn}>
                     <AiOutlineZoomIn />
                   </button>
-                  <button
-                    className="tools-btn"
-                    variant="btn-outline-info"
-                    onClick={resetZoom}
-                  >
+                  <button className='tools-btn' variant='btn-outline-info' onClick={resetZoom}>
                     <MdOutlineZoomOutMap />
                   </button>
                 </div>
-                <button
-                  type="button"
-                  className="tools-btn"
-                  onClick={() => graph.clear()}
-                >
+                <button type='button' className='tools-btn' onClick={() => graph.clear()}>
                   <AiFillDelete />
                 </button>
               </div>
             </div>
-            <div id="paper" />
+            <div id='paper' />
           </div>
-          <div className="draw-col3" />
+          <div className='draw-col3' />
         </div>
       </div>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel="Example Modal"
+        contentLabel='Example Modal'
       >
         <div>
-          <div style={{ border: "1px solid black" }} id="menu" />
-          <div className="formats-btn">
+          <div style={{ border: '1px solid black' }} id='menu' />
+          <div className='formats-btn'>
             <Button
-              className="btn-danger d-btn mt-5"
+              className='btn-danger d-btn mt-5'
               onClick={() => {
-                downloadImage("jpeg");
+                downloadImage('jpeg');
               }}
             >
               JPEG
             </Button>
             <Button
-              className="btn-danger d-btn mt-5"
+              className='btn-danger d-btn mt-5'
               onClick={() => {
-                downloadImage("png");
+                downloadImage('png');
               }}
             >
               PNG
             </Button>
             <Button
-              className="btn-danger d-btn mt-5"
+              className='btn-danger d-btn mt-5'
               onClick={() => {
-                downloadImage("svg");
+                downloadImage('svg');
               }}
             >
               SVG
             </Button>
             <Button
-              className="btn-danger d-btn mt-5"
+              className='btn-danger d-btn mt-5'
               onClick={() => {
-                downloadImage("pdf");
+                downloadImage('pdf');
               }}
             >
               PDF

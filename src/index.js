@@ -7,6 +7,7 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 import './assets/scss/main.scss';
+import '@clientio/rappid/rappid.css';
 root.render(
   <>
     <Provider store={store}>
