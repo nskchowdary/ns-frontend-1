@@ -1,6 +1,17 @@
 .allPaper-mainDiv {
-  width: 95%;
-  border: 2px solid rgb(107, 105, 105);
-  margin-left: 10px;
+  width: 100%;
+  // border: 2px solid rgb(107, 105, 105);
+  margin: 0 auto;
   min-height: 900px;
+  .card {
+    .card-img-top {
+      border-top-left-radius: calc(0.25rem - 1px);
+      border-top-right-radius: calc(0.25rem - 1px);
+      object-fit: contain;
+    }
+    .card-title {
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+  }
 }

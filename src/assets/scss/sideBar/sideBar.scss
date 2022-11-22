@@ -1,6 +1,21 @@
 .sideBar-mainDiv {
   min-height: 650px;
-  width: 230px;
+  min-width: 230px;
+  width: 15%;
   border: solid black 2px;
-  background-color: rgb(240, 118, 18);
+  color: #c6c7e2;
+  background: #383b61;
+  margin-right: 1em;
+  // padding: 1em;
+}
+.sideNav {
+  border-bottom: 1px solid #dee2e6 !important;
+  padding: 0.65em;
+
+  &:first-child {
+    margin-top: 0.5em;
+  }
+  &:last-child {
+    border: 0 !important;
+  }
 }

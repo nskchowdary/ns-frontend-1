@@ -3,7 +3,7 @@ body {
   margin: 0;
 }
 .header-mainDiv {
-  background-color: #f8f8f8;
+  background-color: #fff;
   height: 70px;
   width: auto;
   border: 2px solid black;
@@ -16,7 +16,5 @@ body {
   padding-bottom: 20px;
 }
 .logout-btn {
-  height: 50px;
-  margin-right: 50px;
-  margin-top: 5px;
+  margin: 0.85em;
 }
