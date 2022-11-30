@@ -66,7 +66,7 @@ class Diagram extends Component {
       <div ref={this.appRef} className='Diagram'>
         <div className='app-header'>
           <div className='app-title'>
-            <img src='/logo512.png' className='p-2 img-fluid' alt='' />
+            <h1>{this.props.title}</h1>
           </div>
           <div className='toolbar-container' />
         </div>
