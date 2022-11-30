@@ -281,10 +281,6 @@ class KitchenSinkService {
             if (collection.includes(cell)) {
                 return;
             }
-            console.log(cell.attributes.type);
-            // if (cell.attributes.type === "standard.Link") {
-            //   cell.attributes.type = "app.Link";
-            // }
             collection.reset([cell]);
         });
 
