@@ -105,7 +105,7 @@ export class StencilService {
           size: { width: 90, height: 54 },
           attrs: {
             root: {
-              dataTooltip: 'Ellipse',
+              dataTooltip: 'Link',
               dataTooltipPosition: 'left',
               dataTooltipPositionSelector: '.joint-stencil',
             },
@@ -113,12 +113,12 @@ export class StencilService {
               width: 50,
               height: 30,
               fill: 'transparent',
-              stroke: '#31d0c6',
+              stroke: 'transparent',
               strokeWidth: 2,
               strokeDasharray: '0',
             },
             label: {
-              text: 'ellipse',
+              text: 'custom line',
               fill: '#c6c7e2',
               fontFamily: 'Roboto Condensed',
               fontWeight: 'Normal',
