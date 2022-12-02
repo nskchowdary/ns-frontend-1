@@ -1,5 +1,4 @@
-import { dia, elementTools } from '@clientio/rappid'
-
+import { dia, elementTools, linkTools } from '@clientio/rappid'
 export const boundaryTool = new elementTools.Boundary()
 export const removeButton = new elementTools.Remove()
 export const connecetTool = new elementTools.Connect()
@@ -30,6 +29,34 @@ function getMarkup(angle = 0) {
     },
   ]
 }
+
+export const infoButton = new linkTools.Button({
+  focusOpacity: 0.5,
+  distance: 60,
+  action: function(evt) {
+      alert("info button");
+  },
+  markup: [{
+      tagName: 'circle',
+      selector: 'button',
+      attributes: {
+          'r': 8,
+          'fill': '#001DFF',
+          'cursor': 'pointer'
+      }
+  }, {
+      tagName: 'path',
+      selector: 'icon',
+      attributes: {
+          'd': 'M -2 4 2 4 M 0 3 0 0 M -2 -1 1 -1 M -1 -4 1 -4',
+          'fill': 'none',
+          'stroke': '#FFFFFF',
+          'stroke-width': 2,
+          'pointer-events': 'none'
+      }
+  }]
+});
+
 export const connectRight = new elementTools.Connect({
   x: '100%',
   y: '50%',

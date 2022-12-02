@@ -14,6 +14,7 @@ file, You can obtain one at http://jointjs.com/license/rappid_v2.txt
 import * as joint from '@clientio/rappid';
 import * as dagre from 'dagre';
 import * as appShapes from '../shapes/app-shapes';
+import { infoButton } from "../../../utilities/common/Tools/index";
 
 class KitchenSinkService {
 
@@ -259,6 +260,7 @@ class KitchenSinkService {
         const toolsView = new joint.dia.ToolsView({
             name: 'link-pointerdown',
             tools: [
+                infoButton,
                 new ns.Vertices(),
                 new ns.SourceAnchor(),
                 new ns.TargetAnchor(),
