@@ -46,7 +46,7 @@ class Diagram extends Component {
     );
     this.rappid = service;
     service.startRappid();
-    // service.graph.fromJSON(JSON.parse(sampleGraphs.emergencyProcedure));
+    service.graph.fromJSON(JSON.parse(sampleGraphs.emergencyProcedure));
 
     const themePicker = new ThemePicker({
       el: this.themePickerRef.current,
