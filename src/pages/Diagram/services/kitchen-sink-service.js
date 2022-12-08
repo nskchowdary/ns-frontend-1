@@ -80,10 +80,7 @@ class KitchenSinkService {
             defaultConnectionPoint: appShapes.app.Link.connectionPoint,
             interactive: { linkMove: false },
             async: true,
-            sorting: joint.dia.Paper.sorting.APPROX,
-            background:{
-                image:'/images/autocad.png'
-            },
+            sorting: joint.dia.Paper.sorting.APPROX
         });
 
         paper.on('blank:contextmenu', (evt) => {
@@ -121,7 +118,7 @@ class KitchenSinkService {
 
     initializeStencil() {
 
-        const { stencilService, paperScroller, snaplines, graph } = this;
+        const { stencilService, paperScroller, snaplines } = this;
         stencilService.create(paperScroller, snaplines);
 
         this.renderPlugin('.stencil-container', stencilService.stencil);
@@ -129,19 +126,6 @@ class KitchenSinkService {
 
         stencilService.stencil.on('element:drop', (elementView) => {
             this.selection.collection.reset([elementView.model]);
-        });
-
-        stencilService.stencil.on('element:dragend', function(cloneView, _evt, cloneArea, validDropTarget) {
-            if (!validDropTarget) return;
-            if (cloneView.model.get('type') === 'standard.Ellipse') {
-                // do not add the stencil clone to the graph
-                stencilService.stencil.cancelDrag({ dropAnimation: false });
-                // add an actual link instead
-                const link = new joint.shapes.standard.Link();
-                link.source(cloneArea.topLeft());
-                link.target(cloneArea.topRight());
-                link.addTo(graph);
-            }
         });
     }
 
