@@ -276,6 +276,9 @@ class KitchenSinkService {
     initializeToolsAndInspector() {
 
         this.paper.on('cell:pointerup', (cellView) => {
+            const jsonString = JSON.stringify(this.graph.toJSON());
+            console.log(jsonString);
+            console.log("cell:pointerup");
             const cell = cellView.model;
             const { collection } = this.selection;
             if (collection.includes(cell)) {

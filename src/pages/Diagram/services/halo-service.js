@@ -20,7 +20,8 @@ export class HaloService {
         new joint.ui.Halo({
             cellView,
             handles: this.getHaloConfig(),
-            useModelGeometry: true
+            useModelGeometry: true,
+            type: 'toolbar'
         }).render();
     }
     
@@ -48,6 +49,40 @@ export class HaloService {
                     '.handle': {
                         'data-tooltip-class-name': 'small',
                         'data-tooltip': 'Click and drag to clone and connect the object in one go',
+                        'data-tooltip-position': 'left',
+                        'data-tooltip-padding': 15
+                    }
+                }
+            },
+            {
+                name: 'my Custom',
+                position: Position.N,
+                icon: '/images/myaction.png',
+                events: { pointerdown:  (evt)=> {
+                    evt.stopPropagation();
+                    console.log('My custom action.');
+                }, pointermove: 'doClone', pointerup: 'stopCloning' },
+                attrs: {
+                    '.handle': {
+                        'data-tooltip-class-name': 'small',
+                        'data-tooltip': 'Click and drag to clone the object',
+                        'data-tooltip-position': 'left',
+                        'data-tooltip-padding': 15
+                    }
+                }
+            },
+            {
+                name: 'my Custom2',
+                position: Position.W,
+                icon: '/images/form.png',
+                events: { pointerdown:  (evt) =>{
+                    evt.stopPropagation();
+                    console.log('My custom action.');
+                }, pointermove: 'doClone', pointerup: 'stopCloning' },
+                attrs: {
+                    '.handle': {
+                        'data-tooltip-class-name': 'small',
+                        'data-tooltip': 'Create Form',
                         'data-tooltip-position': 'left',
                         'data-tooltip-padding': 15
                     }
