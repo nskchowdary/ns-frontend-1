@@ -184,97 +184,25 @@
 //   transform: scale(1.5);
 // }
 
-
 // .............................newform............................
 
-* {
+.form_container {
   background-color: white;
-  box-sizing: border-box;
-  overflow-y: hidden;
-  overflow-x: hidden;
 }
-.outer_Fluid_Container{
-  padding: 0% !important;
-  margin: 0% !important;
-  
+.login-page {
+  height: 100vh;
+  overflow: hidden;
+  button {
+    width: 100%;
+  }
 }
-.outer_Container{
-  box-shadow: rgba(255, 0, 0, 0.2) 0px 7px 29px 0px;
-  padding: 0% !important;
-  margin: 0% !important;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  // padding-left: 0 !important;
-  // padding-right: 0 !important;;
-  // margin-left: 0 !important;
-  // margin-right: 0 !important;
-  // top: 0;
-  // bottom: 0;
-  // left: 0;
-  // right: 0;
-  // max-height: fit-content;
-  // min-width: 250px;
+
+.form_container {
+  width: 65%;
+  margin: 0 auto;
+  text-align: left;
 }
-.inner_img_Container {
-  width: 100%;
-  height: 568px;
-  min-width: 500px;
-  // background-color: blue;
-  // min-width: 300px;
-}
-.login_image{
+.login_image {
   width: 100%;
   height: 100%;
-}
-.inner_form_container {
-  width: 100%;
-  min-width: 500px;
-  margin-bottom: 10px;
-  // height: 100px;
-  // background-color: red;
-  // min-width: 300px;
-}
-.form_input_field{
-  margin-left: 15%;
-}
-.logo-image{
-  width: 50%;
-  height: 60px;
-  margin: 5% 0% 5% 25%;
-}
-
-.logo-content > h2 {
-  font-weight: bolder;
-  color: black;
-  margin: 0% 0% 0% 15%;
-}
-
-.logo-content > h6 {
-  font-weight: 400;
-  color: black;
-  margin: 2% 0% 5% 15%;
-}
-
-.login__input {
-  width: 80% !important;
-}
-
-.login__input:active,
-.login__input:focus,
-.login__input:hover {
-  outline: none;
-  border-bottom-color: #6a679e;
-}
-.submit_button{
-  width: 80%;
-  background-color: rgb(79, 79, 216) !important;
-}
-.terms_condition{
-  font-weight: 400;
-  width: 100%;
-  padding-left: 10%;
-  a {
-    color: black;
-  }
 }

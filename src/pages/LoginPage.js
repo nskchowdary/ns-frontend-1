@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { setItem, getItem } from "../utilities/common/index";
-import "../assets/scss/LoginPage/LoginPage.scss";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { setItem, getItem } from '../utilities/common/index';
+import '../assets/scss/LoginPage/LoginPage.scss';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const LoginPage = () => {
   const [username, setUsername] = useState(null);
@@ -14,84 +14,134 @@ const LoginPage = () => {
   const [err, setErr] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
-    const user = getItem("loggedIn");
+    const user = getItem('loggedIn');
     if (user) {
-      navigate("/");
+      navigate('/');
     }
   }, []);
   const handleLoginForm = (e) => {
     e.preventDefault();
     if (!username || !password) {
-      setErr("enter User Name & Password");
+      setErr('enter User Name & Password');
     }
-    if (username === "neosilica" && password === "123456") {
-      setItem("loggedIn", true);
-      navigate("/");
+    if (username === 'neosilica' && password === '123456') {
+      setItem('loggedIn', true);
+      navigate('/');
     } else {
-      setErr("*Invalid Email or Password");
+      setErr('*Invalid Email or Password');
     }
   };
   return (
     <>
-      <Container fluid className="outer_Fluid_Container">
-        <Row className="outer_Container">
-          <Col className="inner_img_Container p-0">
-            <img className="login_image" src="/login-img.png" alt="" />
-          </Col>
-          <Col className="inner_form_container">
-            <div className="logo-container">
+      <div className='container-fluid login-page'>
+        <div className='row'>
+          {/* img section */}
+          <div className='col bg-danger p-0'>
+            <img src='/login-img.png' alt='logo' className='login_image' />
+          </div>
+
+          {/* img section */}
+          {/* form section */}
+          <div className='col  p-0'>
+            <div className='logo-container text-center'>
               <div>
-                <img className="logo-image" src="/logo512.png" alt="" />
+                <img className='img-fluid' src='/logo512.png' alt='' />
               </div>
-              <div className="logo-content">
+              <div className='text-left'>
+                <h2>Welcome</h2>
+                <h6>Please login to your account</h6>
+              </div>
+
+              <div className='form_container'>
+                <form>
+                  <div class='mb-3'>
+                    <label for='exampleInputEmail1' class='form-label'>
+                      Email address
+                    </label>
+                    <input
+                      type='email'
+                      class='form-control'
+                      id='exampleInputEmail1'
+                      aria-describedby='emailHelp'
+                    />
+                    <div id='emailHelp' class='form-text'>
+                      We'll never share your email with anyone else.
+                    </div>
+                  </div>
+                  <div class='mb-3'>
+                    <label for='exampleInputPassword1' class='form-label'>
+                      Password
+                    </label>
+                    <input type='password' class='form-control' id='exampleInputPassword1' />
+                  </div>
+                  <div class='mb-3 form-check'>
+                    <input type='checkbox' class='form-check-input' id='exampleCheck1' />
+                    <label class='form-check-label' for='exampleCheck1'>
+                      Check me out
+                    </label>
+                  </div>
+                  <button type='submit' class='btn btn-primary btn-block'>
+                    Submit
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          {/* form section */}
+        </div>
+
+        {/* <Row className='outer_Container'>
+          <Col className='inner_img_Container p-0'>
+            <img className='login_image' src='/login-img.png' alt='' />
+          </Col>
+          <Col className='inner_form_container'>
+            <div className='logo-container'>
+              <div>
+                <img className='logo-image' src='/logo512.png' alt='' />
+              </div>
+              <div className='logo-content'>
                 <h2>Welcome</h2>
                 <h6>Please login to your account</h6>
               </div>
             </div>
-            <Form className="form_input_field" onSubmit={handleLoginForm}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form className='form_input_field' onSubmit={handleLoginForm}>
+              <Form.Group className='mb-3' controlId='formBasicEmail'>
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
-                  placeholder="eg- neosilica@gmail.com"
-                  type="Email"
-                  className="login__input"
+                  placeholder='eg- neosilica@gmail.com'
+                  type='Email'
+                  className='login__input'
                   value={username}
                   onChange={(e) => {
                     setUsername(e.target.value);
                   }}
                 />
               </Form.Group>
-              {err && (
-                  <p style={{ color: "red"}}>
-                    {err}
-                  </p>
-                )}
-              <Form.Group className="mb-4 " controlId="formBasicPassword">
+              {err && <p style={{ color: 'red' }}>{err}</p>}
+              <Form.Group className='mb-4 ' controlId='formBasicPassword'>
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                  type="password"
-                  className="login__input"
-                  placeholder="***********"
+                  type='password'
+                  className='login__input'
+                  placeholder='***********'
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
                 />
               </Form.Group>
-              <Button
-                className="submit_button mb-4"
-                variant="primary"
-                type="submit"
-              >
+              <Button className='submit_button mb-4' variant='primary' type='submit'>
                 Login
               </Button>
-              <div className="terms_condition">
-                <a href="" className="terms">Terms and Conditions & Privacy Policy</a>
+              <div className='terms_condition'>
+                <a href='' className='terms'>
+                  Terms and Conditions & Privacy Policy
+                </a>
               </div>
             </Form>
           </Col>
-        </Row>
-      </Container>
+        </Row> */}
+      </div>
     </>
     //  <div className="login-MainDiv">
     //    <div className="container">
